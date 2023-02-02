@@ -12,7 +12,7 @@ describe('Test Launches API', () => {
     })
     describe('Test GET /launches', function () {
         test('It should respond with 200 success', async () => {
-            const response = await request(app).get('/launches')
+            const response = await request(app).get('/v1/launches')
                 .expect('Content-Type', /json/)
                 .expect(200)
         })
@@ -39,7 +39,7 @@ describe('Test Launches API', () => {
             launchDate: 'Fuck'
         }
         test('It should respond with 201 success', async () => {
-            const response = await request(app).post('/launches')
+            const response = await request(app).post('/v1/launches')
                 .send(completeLaunchData)
                 .expect('Content-Type', /json/)
                 .expect(201)
@@ -50,7 +50,7 @@ describe('Test Launches API', () => {
             expect(response.body).toMatchObject(launchDataWthoutDate)
         })
         test('It should catch missing required properties', async () => {
-            const response = await request(app).post('/launches')
+            const response = await request(app).post('/v1/launches')
                 .send(launchDataWthoutDate)
                 .expect('Content-Type', /json/)
                 .expect(400)
@@ -59,7 +59,7 @@ describe('Test Launches API', () => {
         })
 
         test('It should catch invalid dates', async () => {
-            const response = await request(app).post('/launches')
+            const response = await request(app).post('/v1/launches')
                 .send(launchDateWithInvalidDate)
                 .expect('Content-Type', /json/)
                 .expect(400)
